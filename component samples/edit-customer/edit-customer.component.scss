@@ -1,0 +1,55 @@
+@import '../../../../../assets/styles/variables.scss';
+@import '../../../../../assets/styles/mixins.scss';
+
+.form {
+  padding: 15px;
+}
+
+.copy-fileds {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  margin: auto 10px;
+
+  i.arrow-right {
+    display: inline-block;
+  }
+
+  i.arrow-down {
+    display: none;
+  }
+
+  @include mq(phablet, max) {
+    margin: auto;
+
+    i.arrow-right {
+      display: none
+    }
+
+    i.arrow-down {
+      display: block;
+    }
+  }
+}
+
+.form-group--inline-items {
+  @include mq(phablet, max) {
+    flex-flow: column nowrap;
+
+    > input:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.left-group, .right-group {
+  width: calc(100% / 2 - 60px);
+
+  .form-group-header {
+    text-align: center;
+  }
+
+  @include mq(phablet, max) {
+    width: 100%;
+  }
+}

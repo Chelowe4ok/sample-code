@@ -1,0 +1,17 @@
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <app-sidebar [ngClass]="{'active': activeSidebar}"></app-sidebar>
+
+    <!-- Header -->
+    <app-header></app-header>
+
+    <div class="content"
+         [@routerTransition]="o.isActivated ? o.activatedRoute : ''"
+         (click)="closeSidebar()">
+
+      <!-- Dashboard Content -->
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
+
+</div>

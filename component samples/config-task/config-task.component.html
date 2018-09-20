@@ -1,0 +1,46 @@
+
+<div *ngIf="loaded">
+  <div class="phase edit-mode mat-elevation-z8" 
+       *ngFor="let phase of phases; let phaseIndex = index" 
+       (scroll)="handleScroll($event, phase.id)">
+    <div class="phase-header" 
+         [ngClass]="{'scroll': getTaskActivitiesToPhase(phase.id).length > 0}"
+         [ngStyle]="{'min-width': getMinWidthTable()*(zoomLevel / 100) + 'px'}">
+      <div class="title">
+        <h2 class="ui-g-11">{{phase.category}}</h2>
+      </div>
+
+      <div *ngIf="!settings.task_view_mode" class="actions">
+        <mat-icon class="add-btn btn"
+                  (click)="addActivity(phase.id)"
+                  matTooltip="Add Section"
+                  [ngStyle]="{'font-size': defaultZoomIconsSize * (zoomLevel / 100) + 'px', 'width': defaultZoomIconsSize*(zoomLevel / 100) + 'px', 'height': defaultZoomIconsSize*(zoomLevel / 100) + 'px'}">
+          add
+        </mat-icon>
+      </div>
+    </div>
+
+    <div class="section-bag"                                                                                                                              
+         [ngClass]="{'scroll': getTaskActivitiesToPhase(phase.id).length > 0}"
+         [dragula]='"section-bag"'
+         [dragulaModel]='getTaskActivitiesToPhase(phase.id)'
+         [dragulaOptions]="{ initAfterView: true, moves: handleActivity }"
+         [attr.data-phase_id]="phase.id"
+         [ngStyle]="{'font-size': (zoomLevel / 100)+'em', 'min-width': getMinWidthTable()*(zoomLevel / 100) + 'px'}"
+       >
+      <div *ngFor="let activity of getTaskActivitiesToPhase(phase.id); let task_activityIndex = index" class="activities " [attr.data-activity_id]="activity.id">
+
+        <activity-table
+                        [phase]="phase"
+                        [activity]="activity"
+                        [taskActivityItems]="getTaskActivityItemsToActivity(activity.id)"
+                        [phaseScrollData]="phaseScrollData"
+                        [zoomRatio]="zoomLevel / 100"
+                        [activeTaskHour] ="settings.task_hours_view"
+                        [settings] ="settings"
+                        (onUpdateData)="updateData()"></activity-table>
+
+      </div>
+    </div>
+  </div>
+</div>

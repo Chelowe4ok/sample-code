@@ -1,0 +1,389 @@
+<form class="form" [formGroup]="jobForm">
+  <div class="panel-group">
+
+    <!-- Edit Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle"
+             data-toggle="collapse"
+             href="#edit-panel">Edit</a>
+        </h4>
+      </div>
+      <div id="edit-panel" class="panel-collapse collapse in" formArrayName="edit">
+        <div class="panel-footer">
+          <div class="form-group form-group--inline-items">
+            <label *ngIf="isTemplate; else noTemplate" class="label">
+              <span class="label-text"
+                    tooltip="This is the template this job is based on.">
+                Template Name*:
+                <i class="mdi mdi-help-circle"></i>
+              </span>
+              <input type="text"
+                     class="form-control"
+                     formControlName="templateName"
+                     [ngClass]="{'error-field': getFormGroupArray('edit').controls['templateName'].invalid && 
+                     ( getFormGroupArray('edit').controls['templateName'].dirty || 
+                     getFormGroupArray('edit').controls['templateName'].touched)}"
+                     placeholder="Template Name" />
+            </label>
+            <ng-template #noTemplate>
+              <label class="label">
+                <span class="label-text"
+                      tooltip="This is the template this job is based on.">
+                  Template Name:
+                  <i class="mdi mdi-help-circle"></i>
+                </span>
+
+                <span class="template-name">No Template</span>
+              </label>
+            </ng-template>
+            <label class="label">
+              <span class="label-text"
+                    tooltip="Please enter a customer name.">
+                Customer Name*:
+                <i class="mdi mdi-help-circle"></i>
+              </span>
+
+              <input type="text"
+                     class="form-control"
+                     formControlName="name"
+                     [ngClass]="{'error-field': getFormGroupArray('edit').controls['name'].invalid &&
+                     ( getFormGroupArray('edit').controls['name'].dirty ||
+                     getFormGroupArray('edit').controls['name'].touched)}"
+                     placeholder="Customer Name" />
+            </label>
+            <label class="label">
+              <span class="label-text"
+                    tooltip="User 'Jobs' to create multiple with the same information.">
+                Jobs:
+                <i class="mdi mdi-help-circle"></i>
+              </span>
+
+              <input type="number"
+                     class="form-control"
+                     min="1"
+                     formControlName="jobs"
+                     [ngClass]="{'error-field': getFormGroupArray('edit').controls['jobs'].invalid && ( getFormGroupArray('edit').controls['jobs'].dirty ||  getFormGroupArray('edit').controls['jobs'].touched)}"
+                     placeholder="" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Edit Panel -->
+
+    <!-- Customer Detail Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle"
+             data-toggle="collapse"
+             href="#customer-panel">
+            Customer Details
+            <i class="mdi mdi-help-circle"
+               tooltip="Fill out the customer`s details."></i>
+          </a>
+        </h4>
+      </div>
+      <div id="customer-panel" class="panel-collapse collapse in" formArrayName="customer">
+        <div class="panel-footer">
+          <div class="form-group form-group--inline-items">
+            <div class="form-group form-group--column-items">
+              <label class="label">
+                <span class="label-text">
+                  First Name:
+                </span>
+                <input type="text"
+                       class="form-control"
+                       formControlName="first_name_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['first_name_site'].invalid && 
+                       ( getFormGroupArray('customer').controls['first_name_site'].dirty || 
+                       getFormGroupArray('customer').controls['first_name_site'].touched)}"
+                       placeholder="First Name" />
+              </label>
+              <label class="label">
+                <span class="label-text">
+                  Mobile:
+                </span>
+                <input type="text"
+                       class="form-control"
+                       formControlName="mobile_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['mobile_site'].invalid &&
+                       ( getFormGroupArray('customer').controls['mobile_site'].dirty || 
+                       getFormGroupArray('customer').controls['mobile_site'].touched)}"
+                       placeholder="Mobile" />
+              </label>
+              <label class="label">
+                <span class="label-text">
+                  Address:
+                </span>
+                <input type="text"
+                       #customerAddressInputElement
+                       class="form-control"
+                       formControlName="site_address"
+                       (input)="onSearchAddress($event.target.value)"
+                      [ngClass]="{'error-field': getFormGroupArray('customer').controls['site_address'].invalid && 
+                       ( getFormGroupArray('customer').controls['site_address'].dirty ||
+                       getFormGroupArray('customer').controls['site_address'].touched)}"
+                       placeholder="Address" />
+              </label>
+            </div>
+            <div class="form-group form-group--column-items">
+              <label class="label">
+                <span class="label-text">
+                  Last Name:
+                </span>
+                <input type="text"
+                       class="form-control"
+                       formControlName="last_name_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['last_name_site'].invalid &&
+                       ( getFormGroupArray('customer').controls['last_name_site'].dirty || 
+                       getFormGroupArray('customer').controls['last_name_site'].touched)}"
+                       placeholder="Last Name" />
+              </label>
+              <label class="label">
+                <span class="label-text">
+                  Email*:
+                </span>
+                <input type="email"
+                       class="form-control"
+                       formControlName="email_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['email_site'].invalid &&
+                       ( getFormGroupArray('customer').controls['email_site'].dirty || 
+                       getFormGroupArray('customer').controls['email_site'].touched)}"
+                       placeholder="Email" />
+              </label>
+              <label class="label">
+                <span class="label-text">
+                  Id:
+                </span>
+                <input type="text"
+                       class="form-control"
+                       formControlName="customer_holi_id"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['customer_holi_id'].invalid && 
+                       ( getFormGroupArray('customer').controls['customer_holi_id'].dirty || 
+                       getFormGroupArray('customer').controls['customer_holi_id'].touched)}"
+                       placeholder="Id" />
+              </label>
+            </div>
+            <div class="form-group form-group--column-items">
+              <label class="label">
+                <span class="label-text">
+                  Phone:
+                </span>
+                <input type="text"
+                       class="form-control"
+                       formControlName="phone_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['phone_site'].invalid &&
+                       ( getFormGroupArray('customer').controls['phone_site'].dirty ||  
+                       getFormGroupArray('customer').controls['phone_site'].touched)}"
+                       placeholder="Phone" />
+              </label>
+              <label class="label">
+                <span class="label-text">
+                  Fax:
+                </span>
+
+                <input type="text"
+                       class="form-control"
+                       formControlName="fax_site"
+                       [ngClass]="{'error-field': getFormGroupArray('customer').controls['fax_site'].invalid && 
+                       ( getFormGroupArray('customer').controls['fax_site'].dirty ||
+                       getFormGroupArray('customer').controls['fax_site'].touched)}"
+                       placeholder="Fax" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Customer Detail Panel -->
+
+    <!-- Notes Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle"
+             data-toggle="collapse"
+             href="#notes-panel">
+            Notes
+            <i class="mdi mdi-help-circle"
+               tooltip="Enter any notes you want to save against the job."></i>
+          </a>
+        </h4>
+      </div>
+      <div id="notes-panel" class="panel-collapse collapse" formArrayName="notes">
+        <div class="panel-footer">
+          <div *ngFor="let note of getFormGroupArray('notes').controls; let i = index;"
+               class="note">
+            <div class="form-group form-group--inline-items" [formGroupName]="i">
+              <label class="label note">
+                <span class="label-text">
+                  Note*:
+                </span>
+                <textarea rows="2"
+                          class="form-control"
+                          formControlName="note"
+                          [ngClass]="{'error-field': getFormGroupArray('notes').controls[i].controls['note'].invalid &&
+                          (  getFormGroupArray('notes').controls[i].controls['note'].dirty || 
+                          getFormGroupArray('notes').controls[i].controls['note'].touched)}"
+                          placeholder="Enter a new note"> </textarea>
+              </label>
+
+              <i class="mdi mdi-close-box remove-item action"
+                 (click)="onRemoveNoteField(i)"></i>
+            </div>
+          </div>
+          <button type="button" class="add btn b-primary" (click)="onAddNoteField()">Add Note</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Notes Panel -->
+
+    <!-- Assign Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle"
+             data-toggle="collapse"
+             href="#assign-panel">
+            Assign the Job to a Worker (optional)
+            <i class="mdi mdi-help-circle"
+               tooltip="If you know the details, you can assign a worker and schedule the job now."></i>
+          </a>
+        </h4>
+      </div>
+      <div id="assign-panel" class="panel-collapse collapse" formArrayName="assign">
+        <div class="panel-footer">
+          <div class="form-group form-group--inline-items">
+            <label class="label">
+              <span class="label-text">
+                Worker:
+              </span>
+
+              <ng-select [items]="users"
+                         [selectOnTab]="true"
+                         bindValue="_id"
+                         bindLabel="name"
+                         formControlName="worker_id"
+                         [ngClass]="{'error-field': getFormGroupArray('assign').controls['worker_id'].invalid && 
+                         ( getFormGroupArray('assign').controls['worker_id'].dirty || 
+                         getFormGroupArray('worker_id').controls['worker'].touched)}"
+                         placeholder="Select a worker">
+              </ng-select>
+            </label>
+
+            <label class="label">
+              <span class="label-text">
+                Start Time:
+              </span>
+
+              <input placeholder="Start Time:"
+                     class="form-control"
+                     formControlName="start_at"
+                     [ngClass]="{'error-field': getFormGroupArray('assign').controls['start_at'].invalid && 
+                     ( getFormGroupArray('assign').controls['start_at'].dirty || 
+                     getFormGroupArray('assign').controls['start_at'].touched)}"
+                     [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+              <owl-date-time #dt></owl-date-time>
+            </label>
+            <label class="label">
+              <span class="label-text">
+                Duration:
+              </span>
+
+              <input placeholder="Duration in hours:"
+                     class="form-control"
+                     type="number"
+                     min="0"
+                     formControlName="duration"
+                     [ngClass]="{'error-field': getFormGroupArray('assign').controls['duration'].invalid &&
+                     ( getFormGroupArray('assign').controls['duration'].dirty || 
+                     getFormGroupArray('assign').controls['duration'].touched)}">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Assign Panel -->
+
+    <!-- Steps Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle"
+             data-toggle="collapse"
+             href="#step-panel">
+            What Steps Must the Worker Complete?
+            <i class="mdi mdi-help-circle"
+               tooltip="Steps are mandatory items that your worker must complete before the job is done."></i>
+          </a>
+        </h4>
+      </div>
+      <div id="step-panel" class="panel-collapse collapse" formArrayName="steps">
+        <div class="panel-footer">
+          <div class="step"
+               *ngFor="let step of getFormGroupArray('steps').controls; let i = index;">
+
+            <div [formGroupName]="i"
+                 class="form-group form-group--inline-items">
+              <label class="label">
+                <span class="label-text">
+                  Name*:
+                </span>
+
+                <input type="text"
+                       class="form-control"
+                       formControlName="name"
+                       [ngClass]="{'error-field': getFormGroupArray('steps').controls[i].controls['name'].invalid &&
+                       (  getFormGroupArray('steps').controls[i].controls['name'].dirty || 
+                       getFormGroupArray('steps').controls[i].controls['name'].touched)}"
+                       placeholder="E.g. Start, Delivery" />
+              </label>
+
+              <label class="label">
+                <span class="label-text">
+                  Address:
+                </span>
+
+                <input type="text"
+                       class="form-control"
+                       #stepAddressInputElements
+                       formControlName="address"
+                       data-id="{{i}}"
+                       [ngClass]="{'error-field': getFormGroupArray('steps').controls[i].controls['address'].invalid && 
+                       (  getFormGroupArray('steps').controls[i].controls['address'].dirty || 
+                       getFormGroupArray('steps').controls[i].controls['address'].touched)}"
+                       placeholder="Enter a location (optional)" />
+              </label>
+              <i class="mdi mdi-close-box remove-item action" (click)="onRemoveStepField(i)"></i>
+            </div>
+          </div>
+
+          <button type="button" class="add btn b-primary" (click)="onAddStepField()">Add Step</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Steps Panel -->
+
+  </div>
+
+  <div class="actions-group">
+    <div class="actions-group--left">
+      <button type="button"
+              class="btn b-default btn-outline"
+              (click)="onExit()">
+        <i class="mdi mdi-arrow-left"></i>{{cancleBtnName}}
+      </button>
+      <button *ngIf="job" type="button" class="btn b-default btn-danger" (click)="delete()">
+        <i class="mdi mdi-delete"></i>   Delete
+      </button>
+    </div>
+    <div class="actions-group--right">
+      <button type="button" class="btn b-primary"
+              [disabled]="!jobForm.valid"
+              (click)="onSendForm()">{{submitBtnName}}</button>
+    </div>
+  </div>
+</form>

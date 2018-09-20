@@ -1,0 +1,48 @@
+@import '../../../../assets/styles/variables.scss';
+@import '../../../../assets/styles/mixins.scss';
+
+.label {
+  @include flex();
+  flex-flow: column nowrap;
+  font-weight: normal;
+
+  .label-text {
+    margin-bottom: 10px;
+    font-size: map-get($font-sizes, small);
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+.form-group--inline-items {
+  @include mq(phablet, max) {
+    flex-flow: column nowrap;
+  }
+}
+
+
+button.add {
+  margin-left: 10px;
+}
+
+button.btn-danger {
+  color: map-get($colors, primary-light);
+}
+
+.remove-item {
+  font-size: map-get($font-sizes, h2);
+  margin: auto 0 auto auto;
+  width: 50px;
+}
+
+.hide-dropdown {
+  display: none;
+}
+
+.template-name {
+  text-align: start;
+  color: map-get($colors, text--inverse);
+}
+
+
+
